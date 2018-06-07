@@ -41,18 +41,18 @@ class Radar(object):
             gl.set_marker('o')
             gl.set_markersize(15)
             if idx == 0:
-                gl.set_markerfacecolor('b')
+                gl.set_markerfacecolor('#003399')
             elif idx == 1:
-                gl.set_markerfacecolor('c')
+                gl.set_markerfacecolor('#336666')
             elif idx == 2:
-                gl.set_markerfacecolor('g')
+                gl.set_markerfacecolor('#336699')
             elif idx == 3:
-                gl.set_markerfacecolor('y')
+                gl.set_markerfacecolor('#CC3333')
             elif idx == 4:
-                gl.set_markerfacecolor('r')
+                gl.set_markerfacecolor('#CC9933')
             # this doesn't get used. The center doesn't seem to be different than 5
             else:
-                gl.set_markerfacecolor('black')
+                gl.set_markerfacecolor('#CC0033')
 
             if idx == 0 or idx == 3:
                 tick.set_pad(10)

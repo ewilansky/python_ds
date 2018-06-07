@@ -43,25 +43,25 @@ class Radar(object):
             # get the gridline
             gl = tick.gridline
             gl.set_marker('o')
-            gl.set_markersize(15)
+            gl.set_markersize(30)
             if idx == 0:
-                gl.set_markerfacecolor('b')
+                gl.set_markerfacecolor('#003399')
             elif idx == 1:
-                gl.set_markerfacecolor('c')
+                gl.set_markerfacecolor('#336666')
             elif idx == 2:
-                gl.set_markerfacecolor('g')
+                gl.set_markerfacecolor('#336699')
             elif idx == 3:
-                gl.set_markerfacecolor('y')
+                gl.set_markerfacecolor('#CC3333')
             elif idx == 4:
-                gl.set_markerfacecolor('r')
+                gl.set_markerfacecolor('#CC9933')
             # this doesn't get used. The center doesn't seem to be different than 5
             else:
-                gl.set_markerfacecolor('black')
+                gl.set_markerfacecolor('#CC0033')
 
             if idx == 0 or idx == 3:
-                tick.set_pad(10)
+                tick.set_pad(15)
             else:
-                tick.set_pad(30)
+                tick.set_pad(35)
 
 
     def plot(self, values, *args, **kw):
@@ -70,15 +70,15 @@ class Radar(object):
         self.ax.plot(angle, values, *args, **kw)
 
 
-titles = ['Culture', 'Automation', 'Architecture', 'LEAN', 'Measures', 'Sharing']
+titles = ['Culture', 'Sharing', 'Measures', 'LEAN', 'Architecture', 'Automation']
 label = list("FMIAB")
 
 # Adding frameon False allows for seeing the edge of the figure.
-fig = plt.figure(figsize=(6.4,4.8), frameon=True)
+fig = plt.figure(figsize=(7,7), frameon=True)
 
 radar = Radar(fig, titles, label)
-radar.plot([3.75, 3.25, 3.0, 2.75, 4.25, 3.5], "-", linewidth=2, color="b", alpha=.7, label="PES")
-radar.plot([3.25, 2.25, 2.25, 2.25, 1.5, 1.75],"-", linewidth=2, color="r", alpha=.7, label="CDS-A")
+radar.plot([3.75, 3.5, 4.25, 2.75, 3.0, 3.25], "-", linewidth=2, color="b", alpha=.7, label="PES")
+radar.plot([3.25, 1.75, 1.5, 2.25, 2.25, 2.25],"-", linewidth=2, color="r", alpha=.7, label="CDS-A")
 
 radar.decorate_ticks(radar.ax)
 
