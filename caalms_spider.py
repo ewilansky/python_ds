@@ -35,7 +35,7 @@ class Radar(object):
             # draw a line on the y axis at each label
             ax.tick_params(axis='y', pad=0, left=True, length=6, width=1, direction='inout')
             # adjust positioning of theta labels
-            ax.tick_params(axis='x', pad=5)     
+            # ax.tick_params(axis='x', pad=5)     
             
     def decorate_ticks(self, axes):
         for idx, tick in enumerate(axes.xaxis.majorTicks):
@@ -43,7 +43,7 @@ class Radar(object):
             # get the gridline
             gl = tick.gridline
             gl.set_marker('o')
-            gl.set_markersize(10)
+            gl.set_markersize(15)
             if idx == 0:
                 gl.set_markerfacecolor('b')
             elif idx == 1:
@@ -54,10 +54,15 @@ class Radar(object):
                 gl.set_markerfacecolor('y')
             elif idx == 4:
                 gl.set_markerfacecolor('r')
-            elif idx == 5:
+            # this doesn't get used. The center doesn't seem to be different than 5
+            else:
                 gl.set_markerfacecolor('black')
-            else: # this doesn't get used. The center doesn't seem to be different than 5
-                gl.set_markerfacecolor('black')
+
+            if idx == 0 or idx == 3:
+                tick.set_pad(10)
+            else:
+                tick.set_pad(30)
+
 
     def plot(self, values, *args, **kw):
         angle = np.deg2rad(np.r_[self.angles, self.angles[0]])
@@ -70,7 +75,6 @@ label = list("FMIAB")
 
 # Adding frameon False allows for seeing the edge of the figure.
 fig = plt.figure(figsize=(6.4,4.8), frameon=True)
-
 
 radar = Radar(fig, titles, label)
 radar.plot([3.75, 3.25, 3.0, 2.75, 4.25, 3.5], "-", linewidth=2, color="b", alpha=.7, label="PES")
@@ -86,7 +90,6 @@ radar.ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.10),
 
 # plt.gcf().subplots_adjust(bottom=0.55)
 # plt.tight_layout()
-# plt.rcParams.update({'figure.frameon': False})
 # print(rcParams.keys())
 
 plt.show()
