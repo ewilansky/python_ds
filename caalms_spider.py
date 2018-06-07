@@ -88,13 +88,10 @@ radar.ax.xaxis.grid(clip_on = False)
 radar.ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.10),
       fancybox=True, shadow=True, ncol=4)
 
-# plt.gcf().subplots_adjust(bottom=0.55)
-# plt.tight_layout()
-# print(rcParams.keys())
-
-plt.show()
+# plt.show()
 
 # for saving to file (convenience for inserting into pptx)
-# fig = py.gcf()
-# fig.set_size_inches(6, 10, forward=True)
-# fig.savefig('CAALMS.png', dpi=100, bbox_inches="tight", pad_inches=1)
+# important: remark plt.show() to save the figure
+fig = plt.gcf()
+fig.set_size_inches(8, 8, forward=True)
+fig.savefig('CAALMS.png', dpi=300, pad_inches=1)
