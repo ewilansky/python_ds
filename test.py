@@ -27,20 +27,27 @@ class Radar(object):
             ax.set_rgrids(range(1, 6), labels=label, angle=angle, fontsize=12)
             # hide outer spine (circle)
             ax.spines["polar"].set_visible(False)
-            ax.set_ylim(0, 6)  
-            ax.xaxis.grid(True, color='black', linestyle='-')
+            ax.set_ylim(0, 6)
+            ax.xaxis.grid(True, color='black', linestyle='-', zorder=1)
 
             # draw a line on the y axis at each label
             ax.tick_params(axis='y', pad=0, left=True, length=6, width=1, direction='inout')
 
     def decorate_ticks(self, axes):
-        for idx, tick in enumerate(axes.xaxis.majorTicks):
-            # print(idx, tick.label._text)
+        for idx, tick in enumerate(axes.xaxis.get_major_ticks()):
             # get the gridline
             gl = tick.gridline
+            
             gl.set_marker('o')
             gl.set_markersize(15)
             if idx == 0:
+                # print('tick properties:')
+                # plt.getp(tick) 
+                # get the gridline
+                gl = tick.gridline
+                # print('grid properties:')
+                # plt.getp(gl)
+
                 gl.set_markerfacecolor('#003399')
             elif idx == 1:
                 gl.set_markerfacecolor('#336666')
@@ -58,6 +65,9 @@ class Radar(object):
                 tick.set_pad(10)
             else:
                 tick.set_pad(30)
+                
+        # set the center marker to white
+        axes.plot(0, 0, 'h', markersize=15, color='#ffffff')
 
     def plot(self, values, *args, **kw):
         angle = np.deg2rad(np.r_[self.angles, self.angles[0]])

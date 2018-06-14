@@ -1,5 +1,4 @@
 import numpy as np
-# import pylab as pl
 import matplotlib.pyplot as plt
 from matplotlib import rcParams
 
@@ -39,7 +38,6 @@ class Radar(object):
             
     def decorate_ticks(self, axes):
         for idx, tick in enumerate(axes.xaxis.majorTicks):
-            # print(idx, tick.label._text)
             # get the gridline
             gl = tick.gridline
             gl.set_marker('o')
@@ -51,7 +49,7 @@ class Radar(object):
             elif idx == 2:
                 gl.set_markerfacecolor('#336699')
             elif idx == 3:
-                gl.set_markerfacecolor('#CC3333')
+                gl.set_markerfacecolor('#FFA500')
             elif idx == 4:
                 gl.set_markerfacecolor('#CC9933')
             # this doesn't get used. The center doesn't seem to be different than 5
@@ -62,7 +60,9 @@ class Radar(object):
                 tick.set_pad(15)
             else:
                 tick.set_pad(35)
-
+        
+        # set the center marker to white with a black edge
+        axes.plot(0, 0, 'h', markersize=34, color='#ffffff', linewidth=0, markeredgewidth=1, markeredgecolor='#000000')
 
     def plot(self, values, *args, **kw):
         angle = np.deg2rad(np.r_[self.angles, self.angles[0]])
@@ -73,8 +73,8 @@ class Radar(object):
 titles = ['Culture', 'Sharing', 'Measures', 'LEAN', 'Architecture', 'Automation']
 label = list("FMIAB")
 
-# Adding frameon False allows for seeing the edge of the figure.
-fig = plt.figure(figsize=(7,7), frameon=True)
+# adjust this as necessary to fit the screen
+fig = plt.figure(figsize=(8,7.5))
 
 radar = Radar(fig, titles, label)
 radar.plot([3.75, 3.5, 4.25, 2.75, 3.0, 3.25], "-", linewidth=2, color="b", alpha=.7, label="PES")
@@ -82,16 +82,19 @@ radar.plot([3.25, 1.75, 1.5, 2.25, 2.25, 2.25],"-", linewidth=2, color="r", alph
 
 radar.decorate_ticks(radar.ax)
 
-# this is doing the trick!
+# avoid clipping the circular markers
 radar.ax.xaxis.grid(clip_on = False)
 
 radar.ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.10),
       fancybox=True, shadow=True, ncol=4)
 
-# plt.show()
+# plt.gcf().subplots_adjust(bottom=0.55)
+# plt.tight_layout()
+# print(rcParams.keys())
+
+plt.show()
 
 # for saving to file (convenience for inserting into pptx)
-# important: remark plt.show() to save the figure
-fig = plt.gcf()
-fig.set_size_inches(8, 8, forward=True)
-fig.savefig('CAALMS.png', dpi=300, pad_inches=1)
+# fig = plt.gcf()
+# fig.set_size_inches(8, 8, forward=True)
+# fig.savefig('CAALMS.png', dpi=100, bbox_inches="tight", pad_inches=1)
